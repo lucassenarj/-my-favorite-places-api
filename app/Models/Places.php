@@ -46,7 +46,7 @@ class Places extends Model
 
     // protected $appends = [];
 
-    protected $with = ['photos', 'rating'];
+    protected $with = ['users', 'photos', 'rating'];
 
     public function users()
     {
