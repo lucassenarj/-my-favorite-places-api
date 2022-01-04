@@ -9,13 +9,22 @@ use App\Models\Places;
 class PlacesController extends Controller
 {
     /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt.auth', ['except' => ['index']]);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return response()->json(Places::where("shared", true)->get());
     }
 
     /**
@@ -36,7 +45,7 @@ class PlacesController extends Controller
      */
     public function store(StorePlacesRequest $request)
     {
-        //
+        return response()->json(Places::create($request->all()));
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePlacesRequest;
-use App\Http\Requests\UpdatePlacesRequest;
-use App\Models\Places;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 
 class UsersController extends Controller
 {
@@ -15,7 +15,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(User::all());
     }
 
     /**
@@ -31,21 +31,29 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePlacesRequest  $request
+     * @param  \App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePlacesRequest $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->avatar = $request->avatar ? $request->avatar : "";
+        $user->password = bcrypt($request->password);
+
+        if($user->save()) {
+            return response()->json($user);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Places  $places
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Places $places)
+    public function show(User $user)
     {
         //
     }
@@ -53,10 +61,10 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Places  $places
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Places $places)
+    public function edit(User $user)
     {
         //
     }
@@ -64,11 +72,11 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePlacesRequest  $request
-     * @param  \App\Models\Places  $places
+     * @param  \App\Http\Requests\UpdateUserRequest  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePlacesRequest $request, Places $places)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //
     }
@@ -76,10 +84,10 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Places  $places
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Places $places)
+    public function destroy(User $user)
     {
         //
     }
