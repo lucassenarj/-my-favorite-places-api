@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v0')->group(function() {
     Route::prefix('places')->group(function() {
         Route::get('/', [PlacesController::class, 'index']);
+        Route::get('/{slug}', [PlacesController::class, 'show']);
 
         Route::middleware('jwt.auth')->group(function() {
             Route::post('/', [PlacesController::class, 'store']);

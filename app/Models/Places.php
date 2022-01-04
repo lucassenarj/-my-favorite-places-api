@@ -25,7 +25,7 @@ class Places extends Model
         'visited_at',
         'shared',
         'thumbnail',
-        'user_id'
+        'user_id',
     ];
 
     /**
@@ -33,7 +33,9 @@ class Places extends Model
      *
      * @var array<int, string>
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'updated_at',
+    ];
 
     /**
      * The attributes that should be cast.
@@ -44,11 +46,11 @@ class Places extends Model
         'visited_at' => 'datetime',
     ];
 
-    // protected $appends = [];
+    protected $appends = ['rating_avg'];
 
-    protected $with = ['users', 'photos', 'rating'];
+    protected $with = ['user'];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
@@ -61,5 +63,10 @@ class Places extends Model
     public function rating()
     {
         return $this->hasMany('App\Models\Rating', 'place_id');
+    }
+
+    public function getRatingAvgAttribute()
+    {
+        return $this->attributes['rating_avg'] = $this->rating()->avg('note');
     }
 }

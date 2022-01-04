@@ -15,7 +15,7 @@ class PlacesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['index']]);
+        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class PlacesController extends Controller
      */
     public function index()
     {
-        return response()->json(Places::where("shared", true)->get());
+        return response()->json(Places::where("shared", true)->orderBy('place_id', 'desc')->paginate(5));
     }
 
     /**
@@ -54,9 +54,11 @@ class PlacesController extends Controller
      * @param  \App\Models\Places  $places
      * @return \Illuminate\Http\Response
      */
-    public function show(Places $places)
+    public function show()
     {
-        //
+        $slug = ucwords(str_replace('-', ' ', request()->slug));
+        $place = Places::where('title', 'like', $slug)->first();
+        return response()->json($place);
     }
 
     /**
