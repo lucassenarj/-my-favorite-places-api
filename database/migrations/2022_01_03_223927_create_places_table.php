@@ -15,11 +15,14 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function(Blueprint $table) {
             $table->id('place_id');
+            $table->string('title', 50)->nullable(false);
             $table->string('address', 255)->nullable(false);
             $table->string('latitude', 15)->nullable(false);
             $table->string('longitude', 15)->nullable(false);
             $table->string('description', 255)->nullable();
             $table->string('visited_at')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->boolean('shared')->default(0)->nullable(false);
             $table->integer('user_id')->nullable(false);
             $table->timestamps();
 
