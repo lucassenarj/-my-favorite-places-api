@@ -48,7 +48,7 @@ class Places extends Model
 
     protected $appends = ['rating_avg'];
 
-    protected $with = ['user'];
+    // protected $with = ['user'];
 
     public function user()
     {
