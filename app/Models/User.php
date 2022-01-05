@@ -51,6 +51,8 @@ class User extends Authenticatable implements JWTSubject
 
     // protected $appends = ['places'];
 
+    protected $appends = ['count'];
+
     // protected $with = ['places'];
 
     public function places()
@@ -66,6 +68,11 @@ class User extends Authenticatable implements JWTSubject
     public function rating()
     {
         return $this->hasMany('App\Models\Rating', 'user_id');
+    }
+
+    public function getCountAttribute()
+    {
+        return $this->attributes['count'] = $this->places()->where('shared', true)->get()->count();
     }
 
     public function getPlacesAttribute()
