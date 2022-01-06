@@ -33,7 +33,7 @@ class AuthController extends Controller
         $user = Auth::user();
         $places = $user->places;
         $json = [
-            "token" => $token,
+            "token" => $this->respondWithToken($token)->original,
             "user" => $user,
         ];
 
