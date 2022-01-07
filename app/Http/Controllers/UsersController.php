@@ -15,7 +15,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return response()->json(User::all());
+        return response()->json(User::orderBy('user_id', 'desc')->paginate(10));
     }
 
     /**
@@ -38,13 +38,16 @@ class UsersController extends Controller
     {
         $user = new User();
         $user->name = $request->name;
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->avatar = $request->avatar ? $request->avatar : "";
+        $user->bio = $request->bio ? $request->bio : "";
         $user->password = bcrypt($request->password);
 
         if($user->save()) {
             return response()->json($user);
         }
+        return response(400)->json("Error");
     }
 
     /**
@@ -53,9 +56,10 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show()
     {
-        //
+        $user = User::where('username', 'like', '%'.request()->username.'%')->with('places')->first();
+        return response()->json($user);
     }
 
     /**

@@ -24,7 +24,7 @@ class PlacesController extends Controller
      */
     public function index()
     {
-        return response()->json(Places::where("shared", true)->with('user')->orderBy('place_id', 'desc')->paginate(5));
+        return response()->json(Places::where("shared", true)->with('user')->orderBy('place_id', 'desc')->paginate(10));
     }
 
     /**
@@ -56,8 +56,7 @@ class PlacesController extends Controller
      */
     public function show()
     {
-        $slug = ucwords(str_replace('-', ' ', request()->slug));
-        $place = Places::where('title', 'like', $slug)->with('user')->first();
+        $place = Places::where('slug', request()->slug)->with('user')->with('photos')->first();
         return response()->json($place);
     }
 
