@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Places;
+use App\Models\User;
 
-class PlacesSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class PlacesSeeder extends Seeder
      */
     public function run()
     {
-        Places::factory(200)->create();
+        User::factory(10)->create();
     }
 }

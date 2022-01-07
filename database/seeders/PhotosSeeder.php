@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Photos;
 
 class PhotosSeeder extends Seeder
 {
@@ -13,6 +14,6 @@ class PhotosSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Photos::factory(500)->create();
     }
 }
