@@ -26,6 +26,7 @@ class Places extends Model
         'shared',
         'thumbnail',
         'user_id',
+        'slug'
     ];
 
     /**

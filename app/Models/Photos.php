@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photos extends Model
 {
+    use HasFactory;
+
     protected $primaryKey = 'photo_id';
 
     /**
