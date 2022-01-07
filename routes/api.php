@@ -35,6 +35,7 @@ Route::prefix('v0')->group(function() {
     Route::prefix('users')->group(function() {
         Route::post('/', [UsersController::class, 'store']);
         Route::get('/', [UsersController::class, 'index']);
+        Route::get('/{username}', [UsersController::class, 'show']);
     });
 
     Route::prefix('auth')->middleware('api')->group(function() {
